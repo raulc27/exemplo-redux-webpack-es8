@@ -9,6 +9,19 @@ const fetchLinksSuccess = createAction("FETCH_LINKS_SUCCESS");
 
 store.dispatch(loginSuccess("aPayload"))
 
+
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+const LOGIN_FAILED = "LOGIN_FAILED";
+
+function loginSuccess(payload){
+  return {type:LOGIN_SUCCESS,payload};
+}
+
+function loginFailed(payload){
+  return {type:LOGIN_FAILED, payload};
+}
+
+
 /*
 function loginSuccess(payload){
   return {type:LOGIN_SUCCESS,payload};
@@ -37,13 +50,26 @@ const middleware=[
 
 ];
 
+//reducer..
 
 const authState = {
   token: "",
+  error:"",
 };
 
 function authReducer(state=authState,action){
-  return state;
+  switch(action.type){
+    
+    // usando object spread (ES8)
+    case LOGIN_SUCCESS:
+      return {...state,token:action.payload}
+
+    case LOGIN_FAILED:
+      return {...state,error:action.payload}
+
+    default:
+      return state;
+  }
 }
 
 const rootReducer=combineReducer({
