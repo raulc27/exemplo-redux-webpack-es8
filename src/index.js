@@ -1,10 +1,17 @@
-import {createStore, combineReducers, appMiddleware, compose} from "redux";
+import { combineReducers, appMiddleware, compose} from "redux";
+import {configureStore} from "@reduxjs/toolkit";
 const storeEnhancers = windows.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 
 
 
 const middleware=[
+
+  ...getDefaultMiddleware(),
+  
+  //middlewares...
+
+
 
 ];
 
@@ -22,4 +29,9 @@ const rootReducer=combineReducer({
 });
 
 
-const store = createStore(rootReducer,applyMiddleware(...middleware));
+const store = createStore({
+  reducer:{
+    auth: authReducer,
+  },
+  middleware,
+});
