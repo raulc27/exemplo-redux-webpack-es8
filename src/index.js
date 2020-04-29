@@ -6,6 +6,9 @@ const storeEnhancers = windows.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const loginSuccess = createAction("LOGIN_SUCCESS");
 const loginFailed = createAction("LOGIN_FAILED");
 
+
+
+
 //const fetchLinksRequest = createAction("FETCH_LINKS_REQUEST");
 //const fetchLinksSuccess = createAction("FETCH_LINKS_SUCCESS");
 
@@ -23,21 +26,6 @@ function loginFailed(payload){
   return {type:LOGIN_FAILED, payload};
 }
 
-
-/*
-function loginSuccess(payload){
-  return {type:LOGIN_SUCCESS,payload};
-}
-
-function fetchLinksRequest(){
-  return {type:FETCH_LINKS_REQUEST};
-}
-
-function fetchLinksSuccess(payload){
-  return {type: FETCH_LINKS_SUCCESS, payload};
-}
-
-*/
 
 
 // ********************************************************
@@ -58,6 +46,57 @@ const authState = {
   token: "",
   error:"",
 };
+
+
+
+const authSlice=createSlice({
+  name:"auth",
+  initialState:authState,
+  reducers:{
+    loginSuccess:(state,action)=>{
+      state.token=action.payload;
+      return state;
+    },
+    loginFailed:(state,action)=>{
+      state.error = action.payload;
+      return state;
+    },
+  },
+});
+
+
+ const {loginSuccess, loginFailed}=authSlice.actions;
+ const authReducer = authSlice.reducer;
+
+
+const store = configureStore({
+  reducer:{
+    auth: authReducer,
+  },
+  middleware,
+});
+
+
+
+
+
+
+
+/*
+function loginSuccess(payload){
+  return {type:LOGIN_SUCCESS,payload};
+}
+
+function fetchLinksRequest(){
+  return {type:FETCH_LINKS_REQUEST};
+}
+
+function fetchLinksSuccess(payload){
+  return {type: FETCH_LINKS_SUCCESS, payload};
+}
+
+*/
+
 /*
 function authReducer(state=authState,action){
   switch(action.type){
@@ -74,7 +113,7 @@ function authReducer(state=authState,action){
   }
 }
 */
-
+/*
 const authReducer = createReducer(authState,{
   [loginSuccess]:(state,action)=>{
     state.token=action.payload;
@@ -85,8 +124,8 @@ const authReducer = createReducer(authState,{
     return state;
   }
 })
-
-
+*/
+/*
 const authReducer = createReducer(authState, {
   [loginSuccess]:(state,action)=>{
 
@@ -97,8 +136,12 @@ const authReducer = createReducer(authState, {
   },
 
 });
+*/
 
 
+
+
+/*
 const rootReducer=combineReducer({
   auth: authReducer,
 });
@@ -110,3 +153,5 @@ const store = createStore({
   },
   middleware,
 });
+
+*/
